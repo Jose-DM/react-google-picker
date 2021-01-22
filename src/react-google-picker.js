@@ -97,8 +97,12 @@ var GoogleChooser = function (_React$Component) {
         return null;
       }
 
-      var token = window.gapi.auth.getToken();
-      var oauthToken = token && token.access_token;
+      let oauthToken = this.props.oauthToken
+      
+      if(!oauthToken){
+        const token = window.gapi.auth.getToken();
+        oauthToken = token && token.access_token;
+      }
 
       if (oauthToken) {
         this.createPicker(oauthToken);
@@ -175,6 +179,7 @@ GoogleChooser.propTypes = {
   children: _propTypes2.default.node,
   clientId: _propTypes2.default.string.isRequired,
   developerKey: _propTypes2.default.string,
+  oauthToken: PropTypes.string,
   scope: _propTypes2.default.array,
   viewId: _propTypes2.default.string,
   authImmediate: _propTypes2.default.bool,
